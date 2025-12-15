@@ -1,0 +1,189 @@
+@use 'mixins' as *;
+@use 'variables' as *;
+
+.custom-button {
+  @include inline-flex-center();
+  appearance: none;
+  border: 1px solid transparent;
+  position: relative;
+  background: none;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+
+  font-family: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  line-height: 1;
+
+  height: 48px;
+  padding: 4px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+
+  transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+
+  .button-main {
+    @include inline-flex-center();
+    gap: 12px;
+    white-space: nowrap;
+    transition: opacity 0.15s ease;
+  }
+
+  .button-spinner {
+    @include inline-flex-center();
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  /* ===== Primary (default) ===== */
+  background-color: $button-primary;
+  border-color: $button-primary;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background-color: $button-primary-hover;
+    border-color: $button-primary-hover;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $button-primary-active;
+    border-color: $button-primary-active;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px $button-primary-shadow;
+  }
+
+  /* ===== Secondary ===== */
+  &.secondary {
+    background-color: $button-secondary;
+    border-color: $button-secondary;
+    color: $gray;
+
+    &:hover:not(:disabled) {
+      background-color: $button-secondary-hover;
+      border-color: $button-secondary-hover;
+    }
+
+    &:active:not(:disabled) {
+      background-color: $button-secondary-active;
+      border-color: $button-secondary-active;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px $button-secondary-shadow;
+    }
+  }
+
+  /* ===== Danger ===== */
+  &.danger {
+    background-color: $button-danger;
+    border-color: $button-danger;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background-color: $button-danger-hover;
+      border-color: $button-danger-hover;
+    }
+
+    &:active:not(:disabled) {
+      background-color: $button-danger-active;
+      border-color: $button-danger-active;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px $button-danger-shadow;
+    }
+  }
+
+  /* ===== Sizes ===== */
+  &.sm {
+    height: 36px;
+    padding: 4px 16px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  &.lg {
+    height: 54px;
+    padding: 8px 24px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+
+  /* ===== Full width ===== */
+  &.full-width {
+    width: 100%;
+  }
+
+  /* ===== Disabled ===== */
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* ===== Icon ===== */
+  img {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ===== Loading ===== */
+  &.loading {
+    pointer-events: none;
+    opacity: 0.8;
+
+    .button-main {
+      opacity: 0;
+    }
+
+    .button-spinner {
+      opacity: 1;
+    }
+  }
+
+  /* ===== Spinner ===== */
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid $spinner;
+    border-top-color: $white;
+    animation: spin 0.7s linear infinite;
+  }
+
+  /* ===== Spinner colors for variants ===== */
+  &.secondary .spinner {
+    border-color: $spinner-secondary;
+    border-top-color: $gray;
+  }
+
+  &.danger .spinner {
+    border-color: $spinner;
+    border-top-color: $white;
+  }
+
+  /* ===== Spinner sizes ===== */
+  &.sm .spinner {
+    width: 14px;
+    height: 14px;
+  }
+
+  &.lg .spinner {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

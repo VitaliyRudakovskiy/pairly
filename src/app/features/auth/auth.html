@@ -1,0 +1,72 @@
+<section class="image-background">
+  <div class="login-form">
+    <h2>
+      {{ isLoginForm() ? 'Login' : 'Register' }} to Pairly
+      <img class="logo" src="assets/images/pairly-logo.svg" alt="pairly logo" />
+    </h2>
+    <!-- Login -->
+    <div class="form-field-container">
+      <input
+        type="text"
+        id="email"
+        placeholder="Email"
+        [field]="loginForm.email"
+      />
+      @if (loginForm.email().touched() && loginForm.email().errors().length) {
+        <p
+          class="form-error"
+          [class.visible]="loginForm.email().touched() && loginForm.email().errors().length"
+        >
+          {{ loginForm.email().errors()[0].message }}
+        </p>
+      }
+    </div>
+
+    <!-- Password -->
+    <div class="form-field-container">
+      <input
+        id="password"
+        placeholder="Password"
+        [field]="loginForm.password"
+      />
+      @if (loginForm.password().touched() && loginForm.password().errors().length) {
+        <p
+          class="form-error"
+          [class.visible]="loginForm.password().touched() && loginForm.password().errors().length"
+        >
+          {{ loginForm.password().errors()[0].message }}
+        </p>
+      }
+    </div>
+
+    <app-button
+      fullWidth
+      [label]="isLoginForm() ? 'Login' : 'Create account'"
+      [disabled]="!loginForm().valid()"
+      [loading]="loading()"
+      (click)="signInApp()"
+    />
+
+    <div class="divider">
+      <span>or</span>
+    </div>
+
+    <app-button
+      variant="secondary"
+      fullWidth
+      label="Sign in with Google"
+      (click)="loginWithGoogle()"
+      iconBefore="google.svg"
+    />
+
+    <span class="bottom-text">
+      @if (isLoginForm()) {
+        Don't have an account?
+        <strong (click)="toggleForm()"> Register</strong>
+      } @else {
+        Already have an account?
+        <strong (click)="toggleForm()"> Login</strong>
+      }
+    </span>
+  </div>
+</section>

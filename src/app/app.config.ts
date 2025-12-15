@@ -4,7 +4,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
-import { environment } from './environment/environment';
+import { environment } from '../environment/environment';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
