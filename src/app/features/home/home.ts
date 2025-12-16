@@ -1,18 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../core/auth-service';
-import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Button } from '../../ui/button/button';
+import { NotificationService } from '../../core/notification/notification.service';
 
 @Component({
   selector: 'app-home',
-  imports: [JsonPipe, Button],
+  imports: [Button],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly notificator = inject(NotificationService);
 
   loading = signal(false);
 
@@ -20,7 +21,21 @@ export class Home {
     this.loading.update((l) => !l);
   }
 
-  currentUser = this.authService.currentUser;
+  showS() {
+    this.notificator.success('Success', 'Тут будет текст успешного уведомления');
+  }
+
+  showI() {
+    this.notificator.info('Info', 'Тут будет текст информационного уведомления');
+  }
+
+  showW() {
+    this.notificator.warning('Warning', 'Тут будет текст предупреждения');
+  }
+
+  showE() {
+    this.notificator.error('Error', 'Тут будет текст ошибки');
+  }
 
   async logout() {
     try {

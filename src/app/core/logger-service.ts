@@ -26,13 +26,13 @@ export class LoggerService {
   }
 
   info(message: unknown): void {
-    console.warn('[SOME_INFO]', message);
+    console.warn('[INFO]', message);
 
     this.logs.update((old) => [...old, { message, timestamp: new Date(), type: LogEnum.INFO }]);
   }
 
   error(message: unknown): void {
-    console.error('[ERROR OCCURED]', message);
+    console.error('[ERROR]', message);
 
     this.logs.update((old) => [...old, { message, timestamp: new Date(), type: LogEnum.ERROR }]);
   }

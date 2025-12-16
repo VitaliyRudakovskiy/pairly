@@ -1,12 +1,15 @@
-<p>HOME PAGE</p>
-<p>for</p>
-<p>{{ currentUser() | json }}</p>
 <button (click)="logout()">LOGOUT</button>
 
 <app-button label="LOADING" (click)="toggleLoading()" />
 
-<h1>Тест кнопок md</h1>
-<app-button label="Обычная" size="md" [loading]="loading()" />
-<app-button label="Вторичная" variant="secondary" size="md" [loading]="loading()" />
-<app-button label="Удалить" variant="danger" size="md" [loading]="loading()" />
-
+<h1>Тест уведомлений md</h1>
+<app-button (click)="showS()" label="Обычная" size="md" [loading]="loading()" />
+<app-button (click)="showW()" label="Обычная" size="md" [loading]="loading()" />
+<app-button
+  (click)="showI()"
+  label="Вторичная"
+  variant="secondary"
+  size="md"
+  [loading]="loading()"
+/>
+<app-button (click)="showE()" label="Удалить" variant="danger" size="md" [loading]="loading()" />

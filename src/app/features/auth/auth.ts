@@ -3,6 +3,7 @@ import { email, Field, form, maxLength, minLength, required } from '@angular/for
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth-service';
 import { LoggerService } from '../../core/logger-service';
+import { NotificationService } from '../../core/notification/notification.service';
 import { Button } from '../../ui/button/button';
 
 interface LoginData {
@@ -18,6 +19,7 @@ interface LoginData {
 })
 export class Auth {
   private readonly authService = inject(AuthService);
+  private readonly notificator = inject(NotificationService);
   private readonly logger = inject(LoggerService);
   private readonly router = inject(Router);
 
@@ -49,7 +51,15 @@ export class Auth {
       await callMethod(this.loginModel().email, this.loginModel().password);
       this.router.navigate(['']);
     } catch (err: unknown) {
-      this.logger.error('Error while logging: ' + err);
+      this.logger.error('Auth error: ' + err);
+
+      let userMessage = 'Something went wrong. Please try again.';
+      if (err && typeof err === 'object' && 'code' in err) {
+        const code = (err as { code: string }).code;
+        userMessage = this.getErrorMessage(code);
+      }
+
+      this.notificator.error('Error', userMessage);
     } finally {
       this.loading.set(false);
     }
@@ -60,11 +70,39 @@ export class Auth {
       await this.authService.loginWithGoogle();
       this.router.navigate(['']);
     } catch (err: unknown) {
-      this.logger.error('Error while logging with Google: ' + err);
+      this.logger.error('Auth error with Google: ' + err);
+
+      let userMessage = 'Something went wrong. Please try again.';
+      if (err && typeof err === 'object' && 'code' in err) {
+        const code = (err as { code: string }).code;
+        userMessage = this.getErrorMessage(code);
+      }
+
+      this.notificator.error('Error', userMessage);
     }
   }
 
   toggleForm() {
     this.isLoginForm.update((f) => !f);
+  }
+
+  private getErrorMessage(code: string): string {
+    switch (code) {
+      case 'auth/email-already-in-use':
+        return 'This email is already registered.';
+      case 'auth/invalid-email':
+        return 'Please enter a valid email address.';
+      case 'auth/invalid-credential':
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        return 'Incorrect email or password.';
+      case 'auth/too-many-requests':
+        return 'Too many failed attempts. Please try again later.';
+      case 'auth/network-request-failed':
+        return 'No internet connection. Please check your network.';
+      default:
+        this.logger.error('Unknown auth error:' + code);
+        return 'Something went wrong. Please try again.';
+    }
   }
 }
