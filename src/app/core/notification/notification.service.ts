@@ -2,12 +2,12 @@ import { Injectable, signal } from '@angular/core';
 
 export type NotificationType = 'success' | 'error' | 'info' | 'warning';
 
-export type Notification = {
+export interface Notification {
   summary: string;
   message: string;
   type: NotificationType;
   fadingOut?: boolean;
-};
+}
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +16,7 @@ export class NotificationService {
   notification = signal<Notification | null>(null);
   private lastTimeoutId?: number;
 
-  private show(
-    summary: string,
-    message: string,
-    type: NotificationType,
-    duration: number = 3000
-  ): void {
+  private show(summary: string, message: string, type: NotificationType, duration = 3000): void {
     if (this.notification()) this.startFadeOut(() => this.setNew(summary, message, type, duration));
     else this.setNew(summary, message, type, duration);
   }
@@ -47,13 +42,13 @@ export class NotificationService {
     this.show(summary, message, 'info', duration);
   }
 
-  private setNew(summary: string, message: string, type: NotificationType, duration: number) {
+  private setNew(summary: string, message: string, type: NotificationType, duration: number): void {
     this.notification.set({ summary, message, type });
     clearTimeout(this.lastTimeoutId);
     this.lastTimeoutId = setTimeout(() => this.hide(), duration);
   }
 
-  private startFadeOut(callback?: () => void) {
+  private startFadeOut(callback?: () => void): void {
     const current = this.notification();
     if (!current) return;
 

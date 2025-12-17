@@ -39,7 +39,7 @@ export class Auth {
     maxLength(schemaPath.password, 50, { message: 'Password is too long' });
   });
 
-  async signInApp() {
+  async signInApp(): Promise<void> {
     if (!this.loginForm().valid()) return;
 
     const callMethod = this.isLoginForm()
@@ -65,7 +65,7 @@ export class Auth {
     }
   }
 
-  async loginWithGoogle() {
+  async loginWithGoogle(): Promise<void> {
     try {
       await this.authService.loginWithGoogle();
       this.router.navigate(['']);
@@ -82,7 +82,7 @@ export class Auth {
     }
   }
 
-  toggleForm() {
+  toggleForm(): void {
     this.isLoginForm.update((f) => !f);
   }
 

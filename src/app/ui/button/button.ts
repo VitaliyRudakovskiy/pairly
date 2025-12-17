@@ -20,11 +20,9 @@ export class Button {
   iconAfter = input<string | null>(null);
   disabled = input(false);
 
-  click = output<MouseEvent>();
+  clicked = output<MouseEvent>();
 
-  onClick(event: MouseEvent) {
-    if (!this.disabled && !this.loading) {
-      this.click.emit(event);
-    }
+  onClick(event: MouseEvent): void {
+    if (!this.disabled() && !this.loading()) this.clicked.emit(event);
   }
 }

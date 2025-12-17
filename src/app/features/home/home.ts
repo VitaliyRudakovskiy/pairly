@@ -17,27 +17,27 @@ export class Home {
 
   loading = signal(false);
 
-  toggleLoading() {
+  toggleLoading(): void {
     this.loading.update((l) => !l);
   }
 
-  showS() {
+  showS(): void {
     this.notificator.success('Success', 'Тут будет текст успешного уведомления');
   }
 
-  showI() {
+  showI(): void {
     this.notificator.info('Info', 'Тут будет текст информационного уведомления');
   }
 
-  showW() {
+  showW(): void {
     this.notificator.warning('Warning', 'Тут будет текст предупреждения');
   }
 
-  showE() {
+  showE(): void {
     this.notificator.error('Error', 'Тут будет текст ошибки');
   }
 
-  async logout() {
+  async logout(): Promise<void> {
     try {
       await this.authService.logout();
       this.router.navigate(['auth']);

@@ -6,12 +6,7 @@
     </h2>
     <!-- Login -->
     <div class="form-field-container">
-      <input
-        type="text"
-        id="email"
-        placeholder="Email"
-        [field]="loginForm.email"
-      />
+      <input type="text" id="email" placeholder="Email" [field]="loginForm.email" />
       @if (loginForm.email().touched() && loginForm.email().errors().length) {
         <p
           class="form-error"
@@ -24,11 +19,7 @@
 
     <!-- Password -->
     <div class="form-field-container">
-      <input
-        id="password"
-        placeholder="Password"
-        [field]="loginForm.password"
-      />
+      <input id="password" placeholder="Password" [field]="loginForm.password" />
       @if (loginForm.password().touched() && loginForm.password().errors().length) {
         <p
           class="form-error"
@@ -44,7 +35,7 @@
       [label]="isLoginForm() ? 'Login' : 'Create account'"
       [disabled]="!loginForm().valid()"
       [loading]="loading()"
-      (click)="signInApp()"
+      (clicked)="signInApp()"
     />
 
     <div class="divider">
@@ -55,17 +46,17 @@
       variant="secondary"
       fullWidth
       label="Sign in with Google"
-      (click)="loginWithGoogle()"
       iconBefore="google.svg"
+      (clicked)="loginWithGoogle()"
     />
 
     <span class="bottom-text">
       @if (isLoginForm()) {
         Don't have an account?
-        <strong (click)="toggleForm()"> Register</strong>
+        <strong role="button" tabindex="1" (click)="toggleForm()"> Register</strong>
       } @else {
         Already have an account?
-        <strong (click)="toggleForm()"> Login</strong>
+        <strong role="button" tabindex="1" (click)="toggleForm()"> Login</strong>
       }
     </span>
   </div>

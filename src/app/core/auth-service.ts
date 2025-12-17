@@ -41,7 +41,7 @@ export class AuthService {
     return result.user;
   }
 
-  async logout() {
+  async logout(): Promise<void> {
     await this.auth.signOut();
     this.logger.info('User logged out');
     this.currentUser.set(null);
