@@ -26,6 +26,7 @@ export class Auth {
   isLoginForm = signal(true);
   isPasswordVisible = signal(false);
   loading = signal(false);
+  defaultErrorMessage = signal('Something went wrong. Please try again.');
   loginModel = signal<LoginData>({
     email: '',
     password: '',
@@ -53,13 +54,12 @@ export class Auth {
     } catch (err: unknown) {
       this.logger.error('Auth error: ' + err);
 
-      let userMessage = 'Something went wrong. Please try again.';
       if (err && typeof err === 'object' && 'code' in err) {
         const code = (err as { code: string }).code;
-        userMessage = this.getErrorMessage(code);
+        this.defaultErrorMessage.set(this.getErrorMessage(code));
       }
 
-      this.notificator.error('Error', userMessage);
+      this.notificator.error('Error', this.defaultErrorMessage());
     } finally {
       this.loading.set(false);
     }
@@ -72,13 +72,12 @@ export class Auth {
     } catch (err: unknown) {
       this.logger.error('Auth error with Google: ' + err);
 
-      let userMessage = 'Something went wrong. Please try again.';
       if (err && typeof err === 'object' && 'code' in err) {
         const code = (err as { code: string }).code;
-        userMessage = this.getErrorMessage(code);
+        this.defaultErrorMessage.set(this.getErrorMessage(code));
       }
 
-      this.notificator.error('Error', userMessage);
+      this.notificator.error('Error', this.defaultErrorMessage());
     }
   }
 

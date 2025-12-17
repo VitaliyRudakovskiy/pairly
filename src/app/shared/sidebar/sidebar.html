@@ -1,0 +1,19 @@
+<aside class="sidebar">
+  <div class="top-container" [routerLink]="['home']">
+    <img class="logo" src="/assets/images/pairly-logo.svg" alt="App logo" />
+    <h3>Pairly</h3>
+  </div>
+
+  <nav class="navbar">
+    @for (item of sidebarItems; track item.label) {
+      <div class="navbar-item" [routerLink]="[item.label.toLowerCase()]">
+        <img
+          [src]="item.icon"
+          class="navbar-item__image"
+          [alt]="`Sidebar icon for ${item.label}`"
+        />
+        <span class="navbar-item__label">{{ item.label }}</span>
+      </div>
+    }
+  </nav>
+</aside>
