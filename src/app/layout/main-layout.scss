@@ -1,8 +1,17 @@
 :host {
   display: flex;
   height: 100%;
+
+  @media (max-width: 660px) {
+    flex-direction: column;
+  }
 }
 
 main {
   padding: 16px;
+  flex: 1;
+
+  @media (max-width: 660px) {
+    order: 1;
+  }
 }

@@ -53,10 +53,10 @@
     <span class="bottom-text">
       @if (isLoginForm()) {
         Don't have an account?
-        <strong role="button" tabindex="1" (click)="toggleForm()"> Register</strong>
+        <strong role="button" tabindex="-1" (click)="toggleForm()"> Register</strong>
       } @else {
         Already have an account?
-        <strong role="button" tabindex="1" (click)="toggleForm()"> Login</strong>
+        <strong role="button" tabindex="-1" (click)="toggleForm()"> Login</strong>
       }
     </span>
   </div>

@@ -1,6 +1,14 @@
 @use 'mixins' as *;
 @use 'variables' as *;
 
+:host {
+  display: flex;
+
+  @media (max-width: 660px) {
+    order: 2;
+  }
+}
+
 .sidebar {
   height: 100%;
   background-color: $success;
@@ -21,6 +29,10 @@
     h3 {
       font-size: 24px;
     }
+
+    @media (max-width: 660px) {
+      display: none;
+    }
   }
 
   .navbar {
@@ -36,18 +48,42 @@
       cursor: pointer;
       transition: background-color 0.1s ease-in;
 
-      &:hover {
-        background-color: $spinner;
+      @media (min-width: 660px) {
+        &:hover,
+        &:focus-visible {
+          background-color: $spinner;
+        }
       }
 
       &__image {
         width: 28px;
         height: 28px;
+
+        @media (max-width: 660px) {
+          width: 24px;
+          height: 24px;
+        }
       }
 
       &__label {
         margin-right: 64px;
+
+        @media (max-width: 660px) {
+          display: none;
+        }
       }
     }
+
+    @media (max-width: 660px) {
+      flex-direction: row;
+    }
+  }
+
+  @media (max-width: 660px) {
+    @include flex-center();
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    padding: 8px;
   }
 }

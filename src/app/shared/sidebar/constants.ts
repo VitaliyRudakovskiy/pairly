@@ -10,12 +10,12 @@ export const SIDEBAR_ITEMS = [
     icon: `${baseUrl}/pair.svg`,
   },
   {
-    label: 'Friends',
-    icon: `${baseUrl}/friends.svg`,
-  },
-  {
     label: 'Chat',
     icon: `${baseUrl}/chat.svg`,
+  },
+  {
+    label: 'Friends',
+    icon: `${baseUrl}/friends.svg`,
   },
   {
     label: 'Profile',
