@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
-import { AuthService } from '../../core/auth-service';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../core/auth.service';
 import { Router } from '@angular/router';
 import { Button } from '../../ui/button/button';
-import { NotificationService } from '../../core/notification/notification.service';
+import { CloudinaryService } from '../../core/cloudinary.service';
 
 @Component({
   selector: 'app-home',
@@ -12,29 +12,21 @@ import { NotificationService } from '../../core/notification/notification.servic
 })
 export class Home {
   private readonly authService = inject(AuthService);
+  private readonly cloudinary = inject(CloudinaryService);
   private readonly router = inject(Router);
-  private readonly notificator = inject(NotificationService);
 
-  loading = signal(false);
+  onFile(event: Event): void {
+    const file = (event.target as HTMLInputElement)?.files?.[0];
+    if (!file) return;
 
-  toggleLoading(): void {
-    this.loading.update((l) => !l);
-  }
-
-  showS(): void {
-    this.notificator.success('Success', 'Тут будет текст успешного уведомления');
-  }
-
-  showI(): void {
-    this.notificator.info('Info', 'Тут будет текст информационного уведомления');
-  }
-
-  showW(): void {
-    this.notificator.warning('Warning', 'Тут будет текст предупреждения');
-  }
-
-  showE(): void {
-    this.notificator.error('Error', 'Тут будет текст ошибки');
+    this.cloudinary.uploadImage(file).subscribe({
+      next: (res) => {
+        console.log('Uploaded:', res.secure_url);
+      },
+      error: (err) => {
+        console.error('Upload failed', err);
+      },
+    });
   }
 
   async logout(): Promise<void> {

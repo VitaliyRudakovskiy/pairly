@@ -8,4 +8,8 @@ export const environment = {
     messagingSenderId: '759118536172',
     appId: '1:759118536172:web:df44df9d21e52187b7f4c9',
   },
+  cloudinary: {
+    cloudName: 'dvgrkgwgs',
+    uploadPreset: 'Avatar-preset',
+  },
 };

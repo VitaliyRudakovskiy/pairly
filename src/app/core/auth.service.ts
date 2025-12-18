@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   User,
 } from '@angular/fire/auth';
-import { LoggerService } from '../core/logger-service';
+import { LoggerService } from '../core/logger.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,15 +1,3 @@
-<button (click)="logout()">LOGOUT</button>
+<app-button label="Logout" (clicked)="logout()" />
 
-<app-button label="LOADING" (clicked)="toggleLoading()" />
-
-<h1>Тест уведомлений md</h1>
-<app-button (clicked)="showS()" label="Обычная" size="md" [loading]="loading()" />
-<app-button (clicked)="showW()" label="Обычная" size="md" [loading]="loading()" />
-<app-button
-  (clicked)="showI()"
-  label="Вторичная"
-  variant="secondary"
-  size="md"
-  [loading]="loading()"
-/>
-<app-button (clicked)="showE()" label="Удалить" variant="danger" size="md" [loading]="loading()" />
+<input type="file" (change)="onFile($event)" />
