@@ -2,27 +2,27 @@ const baseUrl = '/assets/icons/sidebar';
 
 export const SIDEBAR_ITEMS = [
   {
-    label: 'Home',
+    label: 'home',
     icon: `${baseUrl}/home.svg`,
   },
   {
-    label: 'Pair',
+    label: 'pair',
     icon: `${baseUrl}/pair.svg`,
   },
   {
-    label: 'Chat',
+    label: 'chat',
     icon: `${baseUrl}/chat.svg`,
   },
   {
-    label: 'Friends',
+    label: 'friends',
     icon: `${baseUrl}/friends.svg`,
   },
   {
-    label: 'Profile',
+    label: 'profile',
     icon: `${baseUrl}/profile.svg`,
   },
   {
-    label: 'Settings',
+    label: 'settings',
     icon: `${baseUrl}/settings.svg`,
   },
 ];

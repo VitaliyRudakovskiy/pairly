@@ -1,9 +1,10 @@
-<section class="image-background">
-  <div class="login-form">
+<section class="auth-container">
+  <app-card maxWidth="420px" padding="32px 20px 40px">
     <h2>
       {{ isLoginForm() ? 'Login' : 'Register' }} to Pairly
       <img class="logo" src="assets/images/pairly-logo.svg" alt="pairly logo" />
     </h2>
+
     <!-- Login -->
     <div class="form-field-container">
       <input type="text" id="email" placeholder="Email" [field]="loginForm.email" />
@@ -45,6 +46,7 @@
     <app-button
       variant="secondary"
       fullWidth
+      class="google-button"
       label="Sign in with Google"
       iconBefore="google.svg"
       (clicked)="loginWithGoogle()"
@@ -59,5 +61,5 @@
         <strong role="button" tabindex="-1" (click)="toggleForm()"> Login</strong>
       }
     </span>
-  </div>
+  </app-card>
 </section>

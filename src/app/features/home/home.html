@@ -1,3 +1,71 @@
 <app-button label="Logout" (clicked)="logout()" />
 
 <input type="file" (change)="onFile($event)" />
+
+<div class="buttons-test">
+  <div>
+    DEFAULT
+    <app-button label="Primary" variant="secondary" (clicked)="notify()" />
+    <app-button label="Info" variant="secondary" (clicked)="notifyI()" />
+    <app-button label="Error" variant="secondary" (clicked)="notifyE()" />
+    <app-button label="Warning" variant="secondary" (clicked)="notifyW()" />
+  </div>
+
+  <div>
+    SMALL
+
+    <app-button label="Primary" size="sm" />
+    <app-button label="Secondary" variant="secondary" size="sm" />
+    <app-button label="Danger" variant="danger" size="sm" />
+  </div>
+
+  <div>
+    BIG
+
+    <app-button label="Primary" size="lg" />
+    <app-button label="Secondary" variant="secondary" size="lg" />
+    <app-button label="Danger" variant="danger" size="lg" />
+  </div>
+
+  <div>
+    DISABLED
+
+    <app-button label="Primary" size="lg" [disabled]="true" />
+    <app-button label="Secondary" variant="secondary" size="lg" [disabled]="true" />
+    <app-button label="Danger" variant="danger" size="lg" [disabled]="true" />
+  </div>
+
+  <div>
+    LOADING
+
+    <app-button label="Primary" size="lg" [loading]="true" />
+    <app-button label="Secondary" variant="secondary" size="lg" [loading]="true" />
+    <app-button label="Danger" variant="danger" size="lg" [loading]="true" />
+  </div>
+
+  <div>
+    ICONS
+
+    <app-button variant="primary" fullWidth label="Sign in with Google" iconBefore="google.svg" />
+    <app-button variant="primary" fullWidth label="Sign in with Google" iconAfter="google.svg" />
+
+    <app-button variant="secondary" fullWidth label="Sign in with Google" iconBefore="google.svg" />
+    <app-button variant="secondary" fullWidth label="Sign in with Google" iconAfter="google.svg" />
+  </div>
+
+  <div [style.width.px]="300">
+    A LOT OF TEXT
+
+    <app-button label="Lorem ipsum dolor sit, amet consectetur adipisicing elit" size="lg" />
+    <app-button
+      label="Lorem ipsum dolor sit, amet consectetur adipisicing elit"
+      variant="secondary"
+      size="lg"
+    />
+    <app-button
+      label="Lorem ipsum dolor sit, amet consectetur adipisicing elit"
+      variant="danger"
+      size="lg"
+    />
+  </div>
+</div>

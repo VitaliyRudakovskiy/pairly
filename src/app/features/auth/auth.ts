@@ -5,6 +5,7 @@ import { AuthService } from '../../core/auth.service';
 import { LoggerService } from '../../core/logger.service';
 import { NotificationService } from '../../core/notification/notification.service';
 import { Button } from '../../ui/button/button';
+import { Card } from '../../ui/card/card';
 
 interface LoginData {
   email: string;
@@ -13,7 +14,7 @@ interface LoginData {
 
 @Component({
   selector: 'app-auth',
-  imports: [Field, Button],
+  imports: [Field, Button, Card],
   templateUrl: './auth.html',
   styleUrl: './auth.scss',
 })

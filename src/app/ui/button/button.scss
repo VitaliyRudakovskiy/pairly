@@ -3,34 +3,31 @@
 
 .custom-button {
   @include inline-flex-center();
-  appearance: none;
-  border: 1px solid transparent;
+  @include brutal-interactive();
+  max-width: 100%;
   position: relative;
-  background: none;
-  overflow: hidden;
-  cursor: pointer;
+  appearance: none;
+  outline: none;
   user-select: none;
-  gap: 12px;
+  border: $brutal-border solid $ink;
+  border-radius: $radius-main;
+  background-color: $color-primary;
+  color: $ink;
+  padding: 12px 24px;
+  box-shadow: $brutal-shadow-offset $brutal-shadow-offset 0px 0px $ink;
 
   font-family: inherit;
   font-weight: 500;
+  font-size: 1rem;
   white-space: nowrap;
   line-height: 1;
 
-  height: 48px;
-  padding: 4px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-
-  transition:
-    background-color 0.1s ease-in,
-    border-color 0.1s ease-in;
-
   .button-main {
     @include inline-flex-center();
-    gap: 12px;
-    white-space: nowrap;
-    transition: opacity 0.15s ease;
+    gap: 16px;
+    white-space: normal;
+    word-break: break-word;
+    transition: $transition-main;
   }
 
   .button-spinner {
@@ -39,105 +36,49 @@
     inset: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.15s ease;
+    transition: $transition-main;
   }
 
-  /* ===== Primary (default) ===== */
-  background-color: $button-primary;
-  border-color: $button-primary;
-  color: $white;
-
-  &:hover:not(:disabled) {
-    background-color: $button-primary-hover;
-    border-color: $button-primary-hover;
-  }
-
-  &:active:not(:disabled) {
-    background-color: $button-primary-active;
-    border-color: $button-primary-active;
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px $button-primary-shadow;
-  }
-
-  /* ===== Secondary ===== */
   &.secondary {
-    background-color: $button-secondary;
-    border-color: $button-secondary;
-    color: $gray;
-
-    &:hover:not(:disabled) {
-      background-color: $button-secondary-hover;
-      border-color: $button-secondary-hover;
-    }
-
-    &:active:not(:disabled) {
-      background-color: $button-secondary-active;
-      border-color: $button-secondary-active;
-    }
-
-    &:focus-visible {
-      box-shadow: 0 0 0 3px $button-secondary-shadow;
-    }
+    background-color: $color-secondary;
+    color: $ink;
   }
 
-  /* ===== Danger ===== */
   &.danger {
-    background-color: $button-danger;
-    border-color: $button-danger;
-    color: $white;
-
-    &:hover:not(:disabled) {
-      background-color: $button-danger-hover;
-      border-color: $button-danger-hover;
-    }
-
-    &:active:not(:disabled) {
-      background-color: $button-danger-active;
-      border-color: $button-danger-active;
-    }
-
-    &:focus-visible {
-      box-shadow: 0 0 0 3px $button-danger-shadow;
-    }
+    background-color: $color-danger;
+    color: $ink;
   }
 
-  /* ===== Sizes ===== */
   &.sm {
-    height: 36px;
-    padding: 4px 16px;
+    padding: 8px 18px;
     font-size: 12px;
-    border-radius: 6px;
   }
 
   &.lg {
-    height: 54px;
-    padding: 8px 24px;
+    padding: 16px 32px;
     font-size: 18px;
-    border-radius: 10px;
   }
 
-  /* ===== Full width ===== */
   &.full-width {
     width: 100%;
   }
 
-  /* ===== Disabled ===== */
   &:disabled {
     cursor: not-allowed;
+    transform: none;
+    box-shadow: 2px 2px 0px 0px $ink;
     opacity: 0.6;
   }
 
-  /* ===== Icon ===== */
   img {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    image-rendering: -webkit-optimize-contrast;
+    pointer-events: none;
   }
 
-  /* ===== Loading ===== */
   &.loading {
     pointer-events: none;
     opacity: 0.8;
@@ -151,7 +92,6 @@
     }
   }
 
-  /* ===== Spinner ===== */
   .spinner {
     width: 16px;
     height: 16px;
@@ -161,7 +101,6 @@
     animation: spin 0.7s linear infinite;
   }
 
-  /* ===== Spinner colors for variants ===== */
   &.secondary .spinner {
     border-color: $spinner-secondary;
     border-top-color: $gray;
@@ -172,7 +111,6 @@
     border-top-color: $white;
   }
 
-  /* ===== Spinner sizes ===== */
   &.sm .spinner {
     width: 14px;
     height: 14px;

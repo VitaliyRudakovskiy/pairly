@@ -1,6 +1,9 @@
+@use 'variables' as *;
+
 :host {
   display: flex;
-  height: 100%;
+  width: 100%;
+  min-height: 100svh;
 
   @media (max-width: 660px) {
     flex-direction: column;
@@ -8,10 +11,11 @@
 }
 
 main {
-  padding: 16px;
   flex: 1;
+  min-width: 0;
+  padding: 24px;
 
   @media (max-width: 660px) {
-    order: 1;
+    padding: 16px;
   }
 }

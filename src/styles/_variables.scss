@@ -1,33 +1,20 @@
+$bg-page: #fffef9;
 $white: #ffffff;
 $gray: #334155;
 $yellow: #f5e86e;
+$ink: #000000;
+$color-success: #a3e635;
 
 /* ===== Buttons ===== */
-$button-primary: #1e6be7;
-$button-primary-hover: #1c50c2;
-$button-primary-active: #1f43a4;
-$button-primary-shadow: rgba(59, 130, 246, 0.35);
+$color-primary: #ffde59;
+$color-secondary: #d6d6f5;
+$color-danger: #ff6b6b;
 
-$button-secondary: #f5f7f9;
-$button-secondary-hover: #e9edf1;
-$button-secondary-active: #e3e7eb;
-$button-secondary-shadow: rgba(148, 163, 184, 0.35);
+$brutal-border: 2px;
+$brutal-shadow-offset: 4px;
+$radius-main: 16px;
+$transition-main: all 0.1s ease-in-out;
 
-$button-danger: #ef4444;
-$button-danger-hover: #dc2626;
-$button-danger-active: #b91c1c;
-$button-danger-shadow: rgba(239, 68, 68, 0.35);
-
+/* ===== Spinner loader ===== */
 $spinner: rgba(255, 255, 255, 0.4);
 $spinner-secondary: rgba(51, 65, 85, 0.3);
-
-/* ===== Notifications ===== */
-$border-width: 6px;
-$success: #c6f7de;
-$success-border: #38c37a;
-$warning: #ffe9c4;
-$warning-border: #e9a123;
-$info: #cde4fe;
-$info-border: #3c85e6;
-$error: #ffd1cc;
-$error-border: #ef574c;
