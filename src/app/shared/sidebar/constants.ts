@@ -18,10 +18,6 @@ export const SIDEBAR_ITEMS = [
     icon: `${baseUrl}/friends.svg`,
   },
   {
-    label: 'profile',
-    icon: `${baseUrl}/profile.svg`,
-  },
-  {
     label: 'settings',
     icon: `${baseUrl}/settings.svg`,
   },

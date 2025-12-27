@@ -7,7 +7,8 @@ import {
   signInWithPopup,
   User,
 } from '@angular/fire/auth';
-import { LoggerService } from '../core/logger.service';
+import { LoggerService } from './logger.service';
+import { onAuthStateChanged } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -17,33 +18,34 @@ export class AuthService {
   readonly auth = inject(Auth);
 
   currentUser = signal<User | null>(null);
+  readonly isAuthReady = signal(false);
+
+  constructor() {
+    onAuthStateChanged(this.auth, (user) => {
+      this.currentUser.set(user);
+      this.isAuthReady.set(true);
+
+      this.logger.info(`User state: ${user ? `${user?.email} logged in` : 'logged out'}`);
+    });
+  }
 
   async register(email: string, password: string): Promise<User> {
     const result = await createUserWithEmailAndPassword(this.auth, email, password);
-    this.currentUser.set(result.user);
-    this.logger.info(`New user registered: ${result.user.email}`);
     return result.user;
   }
 
   async login(email: string, password: string): Promise<User> {
     const result = await signInWithEmailAndPassword(this.auth, email, password);
-    this.currentUser.set(result.user);
-    this.logger.info(`User logged in: ${result.user.email}`);
     return result.user;
   }
 
   async loginWithGoogle(): Promise<User> {
     const googleProvider = new GoogleAuthProvider();
-
     const result = await signInWithPopup(this.auth, googleProvider);
-    this.currentUser.set(result.user);
-    this.logger.info(`User logged in with Google: ${result.user.email}`);
     return result.user;
   }
 
   async logout(): Promise<void> {
     await this.auth.signOut();
-    this.logger.info('User logged out');
-    this.currentUser.set(null);
   }
 }

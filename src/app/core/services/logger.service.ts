@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { environment } from '../../environment/environment';
+import { environment } from '../../../environment/environment';
 
 // разновидности логов
 export enum LogEnum {

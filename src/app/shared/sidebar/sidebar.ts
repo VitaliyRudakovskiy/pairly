@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { SIDEBAR_ITEMS } from './constants';
 import { RouterLink, RouterModule } from '@angular/router';
+import { UserService } from '../../core/services/user.service';
+import { getUserAvatar, UserAvatarDetails } from '../../core/helpers/getUserAvatar';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,5 +11,17 @@ import { RouterLink, RouterModule } from '@angular/router';
   imports: [RouterLink, RouterModule],
 })
 export class Sidebar {
+  private readonly userService = inject(UserService);
+
+  userAvatarDetails = signal<UserAvatarDetails | null>(null);
+  currentUserInfo = this.userService.userProfile;
+
+  constructor() {
+    effect(() => {
+      const avatarData = getUserAvatar(this.currentUserInfo());
+      this.userAvatarDetails.set(avatarData);
+    });
+  }
+
   sidebarItems = SIDEBAR_ITEMS;
 }

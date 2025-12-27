@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { email, Field, form, maxLength, minLength, required } from '@angular/forms/signals';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/auth.service';
-import { LoggerService } from '../../core/logger.service';
+import { AuthService } from '../../core/services/auth.service';
+import { LoggerService } from '../../core/services/logger.service';
 import { NotificationService } from '../../core/notification/notification.service';
 import { Button } from '../../ui/button/button';
 import { Card } from '../../ui/card/card';

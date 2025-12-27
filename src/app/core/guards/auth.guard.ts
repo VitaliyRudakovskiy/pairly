@@ -1,25 +1,22 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { LoggerService } from '../logger.service';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { filter, map, take } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
-  const logger = inject(LoggerService);
   const router = inject(Router);
 
-  // Ждём, пока Firebase определит пользователя
-  return new Promise<boolean>((resolve) => {
-    const unsubscribe = authService.auth.onAuthStateChanged((user) => {
-      authService.currentUser.set(user);
-      logger.info(`User changed to: ${user?.email}`);
-      unsubscribe();
+  // Ждём, пока Firebase скажет, кто пользователь
+  return toObservable(authService.isAuthReady).pipe(
+    filter(Boolean),
+    take(1),
+    map(() => {
+      if (authService.currentUser()) return true;
 
-      if (user) resolve(true);
-      else {
-        router.navigate(['/auth']);
-        resolve(false);
-      }
-    });
-  });
+      router.navigate(['/auth']);
+      return false;
+    }),
+  );
 };

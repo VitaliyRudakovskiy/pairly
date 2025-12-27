@@ -34,6 +34,7 @@
 
   .navbar {
     @include flex-column();
+    flex: 1;
     padding: 24px;
     gap: 16px;
 
@@ -70,6 +71,46 @@
         transform: translate(-2px, -2px);
         box-shadow: 4px 4px 0px 0px $ink;
         pointer-events: none;
+      }
+    }
+  }
+
+  .user-section {
+    @include flex-center();
+    gap: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    margin: 24px;
+    transition: $transition-main;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-secondary
+    }
+
+    .avatar {
+      @include flex-center();
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-color: $color-primary;
+      border: $brutal-border solid $ink;
+      box-shadow: 2px 2px 0px 0px $ink;
+    }
+
+    &__info {
+      @include flex-column();
+      gap: 4px;
+
+      .name {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .email {
+        font-size: 13px;
+        color: $gray;
       }
     }
   }

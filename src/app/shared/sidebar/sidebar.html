@@ -1,3 +1,5 @@
+@let avatar = userAvatarDetails();
+
 <aside class="sidebar">
   <div class="top-container" routerLink="/home">
     <img class="logo" src="/assets/images/pairly-logo.svg" alt="App Logo" />
@@ -16,4 +18,19 @@
       </a>
     }
   </nav>
+
+  @if (currentUserInfo()) {
+    <div class="user-section" routerLink="/profile">
+      @if (avatar?.isImage) {
+        <img class="avatar" [src]="avatar?.details" alt="user avatar" />
+      } @else {
+        <div class="avatar">{{ avatar?.details }}</div>
+      }
+
+      <div class="user-section__info">
+        <span class="name">{{ currentUserInfo()?.displayName }}</span>
+        <span class="email">{{ currentUserInfo()?.email }}</span>
+      </div>
+    </div>
+  }
 </aside>

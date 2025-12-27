@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Button } from '../../ui/button/button';
-import { CloudinaryService } from '../../core/cloudinary.service';
 import { NotificationService } from '../../core/notification/notification.service';
 
 @Component({
@@ -13,23 +12,8 @@ import { NotificationService } from '../../core/notification/notification.servic
 })
 export class Home {
   private readonly authService = inject(AuthService);
-  private readonly cloudinary = inject(CloudinaryService);
   private readonly router = inject(Router);
   private readonly notificationService = inject(NotificationService);
-
-  onFile(event: Event): void {
-    const file = (event.target as HTMLInputElement)?.files?.[0];
-    if (!file) return;
-
-    this.cloudinary.uploadImage(file).subscribe({
-      next: (res) => {
-        console.log('Uploaded:', res.secure_url);
-      },
-      error: (err) => {
-        console.error('Upload failed', err);
-      },
-    });
-  }
 
   async logout(): Promise<void> {
     try {

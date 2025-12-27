@@ -1,1 +1,29 @@
-<p>profile works!</p>
+@let user = currentUser();
+@let avatar = userAvatarDetails();
+
+<div class="avatar-container">
+  <input
+    #fileInput
+    class="select-photo-input"
+    type="file"
+    [accept]="AVAILABLE_FORMATS"
+    (change)="onFileSelected($event)"
+  />
+
+  @if (avatar?.isImage) {
+    <img class="avatar" [src]="avatar?.details" alt="user avatar" />
+    <div tabindex="-1" role="button" class="overlay delete-mode" (click)="onRemoveAvatar()">
+      <span class="icon">🗑️</span>
+    </div>
+  } @else {
+    <div class="avatar default-bg">{{ avatar?.details }}</div>
+    <div tabindex="-1" role="button" class="overlay add-mode" (click)="onAddAvatar()">
+      <span class="icon">+</span>
+    </div>
+  }
+</div>
+
+<div>
+  <h3>{{ user?.displayName }}</h3>
+  <p>{{ user?.status ? user?.status : 'Add status' }}</p>
+</div>
