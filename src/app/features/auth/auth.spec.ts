@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Auth } from './auth';
-import { AuthService } from '@core/auth.service';
 import { NotificationService } from '@core/notification/notification.service';
-import { LoggerService } from '@core/logger.service';
+import { LoggerService } from '@core/services/logger.service';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
 
 describe('Auth', () => {
   let component: Auth;

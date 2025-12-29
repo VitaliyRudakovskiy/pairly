@@ -10,8 +10,8 @@ import {
 } from '@angular/fire/firestore';
 import { LoggerService } from './logger.service';
 import { User } from 'firebase/auth';
-import { UserProfile } from '@models/user-profile';
 import { AuthService } from './auth.service';
+import { UserProfile } from 'models/user-profile';
 
 @Injectable({
   providedIn: 'root',
