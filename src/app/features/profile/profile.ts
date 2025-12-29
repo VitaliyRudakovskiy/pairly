@@ -9,10 +9,13 @@ import {
   MAX_FILE_SIZE_MB,
 } from '../../shared/constants/avatar-config';
 import { NotificationService } from '../../core/notification/notification.service';
+import { CloudinaryService } from '../../core/services/cloudinary.service';
+import { firstValueFrom } from 'rxjs';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [Loader],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
@@ -20,11 +23,13 @@ export class Profile {
   private readonly userService = inject(UserService);
   private readonly logger = inject(LoggerService);
   private readonly notificator = inject(NotificationService);
+  private readonly cloudinaryService = inject(CloudinaryService);
 
   fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
   currentUser = this.userService.userProfile;
   userAvatarDetails = signal<UserAvatarDetails | null>(null);
+  photoLoading = signal(false);
 
   AVAILABLE_FORMATS = IMAGE_ACCEPT_FORMATS_STR;
 
@@ -64,11 +69,19 @@ export class Profile {
       return;
     }
 
+    this.photoLoading.set(true);
+
     try {
-      this.logger.info(`Selected file: ${newPhoto.name}`);
-    } catch (error) {
-      this.logger.error(`Upload failed: ${error}`);
+      const uploadRes = await firstValueFrom(this.cloudinaryService.uploadImage(newPhoto));
+      this.logger.info(`Cloudinary success: ${uploadRes.secure_url}`);
+
+      await this.userService.updateUserProfile({ photoUrl: uploadRes.secure_url });
+      this.notificator.success('Success', 'Avatar updated!');
+    } catch (err) {
+      this.logger.error(`Upload/Update photo failed: ${err}`);
+      this.notificator.error('Error', 'Failed to update avatar');
     } finally {
+      this.photoLoading.set(false);
       filesInput.value = '';
     }
   }

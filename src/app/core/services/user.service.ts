@@ -51,6 +51,32 @@ export class UserService {
     await setDoc(userRef, newUserProfile);
   }
 
+  async updateUserProfile(updatedData: Partial<UserProfile>): Promise<void> {
+    const userId = this.userProfile()?.uid;
+    if (!userId) {
+      this.logger.error('No user is currently logged in.');
+      return;
+    }
+
+    try {
+      const userRef = this.getUserDocRef(userId);
+
+      const dataToUpdate = {
+        ...updatedData,
+        updatedAt: serverTimestamp() as Timestamp,
+      };
+
+      await setDoc(userRef, dataToUpdate, { merge: true });
+      const currentProfile = this.userProfile();
+
+      if (currentProfile) this.userProfile.set({ ...currentProfile, ...dataToUpdate });
+      this.logger.info(`User profile updated for UID: ${userId}`);
+    } catch (error) {
+      this.logger.error(`Failed to update profile: ${error}`);
+      throw error;
+    }
+  }
+
   private async initializeUserProfile(user: User): Promise<void> {
     try {
       const userRef = this.getUserDocRef(user.uid);

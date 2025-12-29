@@ -7,9 +7,18 @@ $avatar-border-radius: 28px;
   position: relative;
   width: 160px;
   height: 160px;
+  border-radius: $avatar-border-radius;
   cursor: pointer;
 
-  &:hover .overlay {
+  &.loading {
+    cursor: wait;
+
+    .overlay {
+      display: none;
+    }
+  }
+
+  &:hover:not(.loading) .overlay {
     opacity: 1;
   }
 
@@ -22,7 +31,7 @@ $avatar-border-radius: 28px;
     justify-content: center;
     width: 100%;
     height: 100%;
-    border-radius: $avatar-border-radius;
+    border-radius: inherit;
     font-size: 56px;
     font-weight: 700;
     background-color: $color-primary;
@@ -36,11 +45,12 @@ $avatar-border-radius: 28px;
     @include flex-center();
     justify-content: center;
     position: absolute;
+    border-radius: inherit;
     top: 0;
     right: 0;
     width: 100%;
     height: 100%;
-    border-radius: $avatar-border-radius;
+
     opacity: 0;
     transition: $transition-main;
     border: $brutal-border solid $ink;
