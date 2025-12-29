@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Home } from './home';
 import { of } from 'rxjs';
-import { AuthService } from '../../core/auth.service';
-import { CloudinaryService } from '../../core/cloudinary.service';
+import { AuthService } from '@core/auth.service';
+import { CloudinaryService } from '@core/cloudinary.service';
 import { Router } from '@angular/router';
 
 describe('Home', () => {

@@ -1,8 +1,8 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { SIDEBAR_ITEMS } from './constants';
 import { RouterLink, RouterModule } from '@angular/router';
-import { UserService } from '../../core/services/user.service';
-import { getUserAvatar, UserAvatarDetails } from '../../core/helpers/getUserAvatar';
+import { UserService } from '@core/services/user.service';
+import { getUserAvatar, UserAvatarDetails } from '@core/helpers/getUserAvatar';
 
 @Component({
   selector: 'app-sidebar',

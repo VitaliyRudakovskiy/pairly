@@ -1,17 +1,17 @@
 import { Component, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { UserService } from '../../core/services/user.service';
-import { getUserAvatar, UserAvatarDetails } from '../../core/helpers/getUserAvatar';
-import { LoggerService } from '../../core/services/logger.service';
+import { UserService } from '@core/services/user.service';
+import { getUserAvatar, UserAvatarDetails } from '@core/helpers/getUserAvatar';
+import { LoggerService } from '@core/services/logger.service';
 import {
   ALLOWED_IMAGE_FORMATS,
   IMAGE_ACCEPT_FORMATS_STR,
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
-} from '../../shared/constants/avatar-config';
-import { NotificationService } from '../../core/notification/notification.service';
-import { CloudinaryService } from '../../core/services/cloudinary.service';
+} from '@shared/constants/avatar-config';
+import { NotificationService } from '@core/notification/notification.service';
+import { CloudinaryService } from '@core/services/cloudinary.service';
 import { firstValueFrom } from 'rxjs';
-import { Loader } from '../../ui/loader/loader';
+import { Loader } from '@ui/loader/loader';
 
 @Component({
   selector: 'app-profile',

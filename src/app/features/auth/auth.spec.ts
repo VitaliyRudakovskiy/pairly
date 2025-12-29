@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Auth } from './auth';
-import { AuthService } from '../../core/auth.service';
-import { NotificationService } from '../../core/notification/notification.service';
-import { LoggerService } from '../../core/logger.service';
+import { AuthService } from '@core/auth.service';
+import { NotificationService } from '@core/notification/notification.service';
+import { LoggerService } from '@core/logger.service';
 import { Router } from '@angular/router';
 
 describe('Auth', () => {

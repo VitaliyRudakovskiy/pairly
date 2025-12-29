@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
-import { Button } from '../../ui/button/button';
-import { NotificationService } from '../../core/notification/notification.service';
+import { AuthService } from '@core/services/auth.service';
+import { Button } from '@ui/button/button';
+import { NotificationService } from '@core/notification/notification.service';
 
 @Component({
   selector: 'app-home',
