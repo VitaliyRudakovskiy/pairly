@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './confirm-modal.html',
   styleUrl: './confirm-modal.scss',
 })
-export class ConfirmModal {
-
-}
+export class ConfirmModal {}
