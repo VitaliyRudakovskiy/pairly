@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { LoggerService } from '@core/services/logger.service';
 import { NotificationService } from '@core/notification/notification.service';
-import { Button } from '@ui/button/button';
-import { Card } from '@ui/card/card';
+import { Button } from '@shared/button/button';
+import { Card } from '@shared/card/card';
 
 interface LoginData {
   email: string;

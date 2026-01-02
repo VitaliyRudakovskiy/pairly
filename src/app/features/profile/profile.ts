@@ -11,7 +11,7 @@ import {
 import { NotificationService } from '@core/notification/notification.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
 import { firstValueFrom } from 'rxjs';
-import { Loader } from '@ui/loader/loader';
+import { Loader } from '@shared/loader/loader';
 
 @Component({
   selector: 'app-profile',
@@ -44,8 +44,12 @@ export class Profile {
     this.fileInput()?.nativeElement.click();
   }
 
-  onRemoveAvatar(): void {
-    console.log('REMOVING');
+  async onRemoveAvatar(): Promise<void> {
+    try {
+      await this.userService.updateUserProfile({ photoUrl: null });
+    } catch (error) {
+      this.logger.error(`Error while deleting avatar: ${error}`);
+    }
   }
 
   async onFileSelected(event: Event): Promise<void> {

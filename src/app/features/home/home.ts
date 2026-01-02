@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { Button } from '@ui/button/button';
+import { Button } from '@shared/button/button';
 import { NotificationService } from '@core/notification/notification.service';
 
 @Component({
