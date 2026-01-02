@@ -1,1 +1,27 @@
-<p>confirm-modal works!</p>
+@if (visible()) {
+  <div class="modal-overlay">
+    <div class="modal-content" role="modal" aria-modal="true">
+      <h3>{{ title() }}</h3>
+      <p>{{ description() }}</p>
+
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Close notification"
+        (click)="onClose()"
+      >
+        ✕
+      </button>
+
+      <div class="buttons">
+        <app-button [label]="cancelLabel()" variant="secondary" (clicked)="onClose()" />
+        <app-button
+          [label]="confirmLabel()"
+          [loading]="loading()"
+          variant="primary"
+          (clicked)="onApply()"
+        />
+      </div>
+    </div>
+  </div>
+}

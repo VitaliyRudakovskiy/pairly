@@ -12,10 +12,11 @@ import { NotificationService } from '@core/notification/notification.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
 import { firstValueFrom } from 'rxjs';
 import { Loader } from '@shared/loader/loader';
+import { ConfirmModal } from '@shared/confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-profile',
-  imports: [Loader],
+  imports: [Loader, ConfirmModal],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
@@ -30,6 +31,8 @@ export class Profile {
   currentUser = this.userService.userProfile;
   userAvatarDetails = signal<UserAvatarDetails | null>(null);
   photoLoading = signal(false);
+  isConfirmModalOpen = signal(false);
+  deleteLoading = signal(false);
 
   AVAILABLE_FORMATS = IMAGE_ACCEPT_FORMATS_STR;
 
@@ -44,11 +47,24 @@ export class Profile {
     this.fileInput()?.nativeElement.click();
   }
 
+  onOpenConfirmModal(): void {
+    this.isConfirmModalOpen.set(true);
+  }
+
+  onCloseConfirmModal(): void {
+    this.isConfirmModalOpen.set(false);
+  }
+
   async onRemoveAvatar(): Promise<void> {
+    this.deleteLoading.set(true);
+
     try {
       await this.userService.updateUserProfile({ photoUrl: null });
     } catch (error) {
       this.logger.error(`Error while deleting avatar: ${error}`);
+    } finally {
+      this.deleteLoading.set(false);
+      this.onCloseConfirmModal();
     }
   }
 

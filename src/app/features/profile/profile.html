@@ -17,7 +17,7 @@
 
   @if (avatar?.isImage) {
     <img class="avatar" [src]="avatar?.details" alt="user avatar" />
-    <div tabindex="-1" role="button" class="overlay delete-mode" (click)="onRemoveAvatar()">
+    <div tabindex="-1" role="button" class="overlay delete-mode" (click)="onOpenConfirmModal()">
       <span class="icon">🗑️</span>
     </div>
   } @else {
@@ -32,3 +32,12 @@
   <h3>{{ user?.displayName }}</h3>
   <p>{{ user?.status ? user?.status : 'Add status' }}</p>
 </div>
+
+<app-confirm-modal
+  title="Delete avatar"
+  description="Are you sure you want to delete your profile picture?"
+  [visible]="isConfirmModalOpen()"
+  [loading]="deleteLoading()"
+  (confirm)="onRemoveAvatar()"
+  (cancelEvent)="onCloseConfirmModal()"
+/>
