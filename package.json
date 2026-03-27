@@ -8,8 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ui": "ng test --ui",
-    "lint": "ng lint",
-    "lint:fix": "ng lint --fix",
+    "lint:ts": "oxlint",
+    "lint:html": "ng lint",
+    "lint": "npm run lint:ts && npm run lint:html",
+    "lint:fix": "oxlint --fix && ng lint --fix",
     "format": "prettier . --write"
   },
   "prettier": {
@@ -48,6 +50,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "jsdom": "^27.3.0",
+    "oxlint": "^1.57.0",
     "prettier": "^3.7.4",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.47.0",
