@@ -11,8 +11,7 @@ import {
 import { NotificationService } from '@core/notification/notification.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
 import { firstValueFrom } from 'rxjs';
-import { Loader } from '@shared/loader/loader';
-import { ConfirmModal } from '@shared/confirm-modal/confirm-modal';
+import { ConfirmModal, Loader } from '@shared/ui';
 
 @Component({
   selector: 'app-profile',
