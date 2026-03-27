@@ -13,7 +13,12 @@ describe('ConfirmModal', () => {
 
     fixture = TestBed.createComponent(ConfirmModal);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+
+    fixture.componentRef.setInput('visible', true);
+    fixture.componentRef.setInput('title', 'Test Title');
+    fixture.componentRef.setInput('description', 'Test Description');
+
+    fixture.detectChanges();
   });
 
   it('should create', () => {
