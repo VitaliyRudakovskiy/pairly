@@ -18,7 +18,7 @@
   @if (avatar?.isImage) {
     <img class="avatar" [src]="avatar?.details" alt="user avatar" />
     <div tabindex="-1" role="button" class="overlay delete-mode" (click)="onOpenConfirmModal()">
-      <span class="icon">🗑️</span>
+      <img class="icon" src="/assets/icons/delete.svg" alt="delete avatar icon" />
     </div>
   } @else {
     <div class="avatar default-bg">{{ avatar?.details }}</div>

@@ -11,11 +11,11 @@ import {
 import { NotificationService } from '@core/notification/notification.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
 import { firstValueFrom } from 'rxjs';
-import { ConfirmModal, Loader } from '@shared/ui';
+import { ConfirmModal, Loader, Button } from '@shared/ui';
 
 @Component({
   selector: 'app-profile',
-  imports: [Loader, ConfirmModal],
+  imports: [Loader, ConfirmModal, Button],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })

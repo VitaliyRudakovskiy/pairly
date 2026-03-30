@@ -1,5 +1,5 @@
 import { booleanAttribute, Component, input, output } from '@angular/core';
-import { ButtonSize, ButtonType, ButtonVariant } from './types';
+import { ButtonSize, ButtonType, ButtonVariant, IconSize } from './types';
 
 @Component({
   selector: 'app-button',
@@ -17,6 +17,7 @@ export class Button {
   iconAfter = input<string | null>(null);
   iconOnly = input<string | null>(null);
   iconAlt = input('');
+  iconSize = input<IconSize | null>(null);
   disabled = input(false);
 
   clicked = output<MouseEvent>();

@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { NotificationService } from '@core/notification/notification.service';
 import { Button } from '@shared/ui';
 
 @Component({
@@ -11,9 +10,8 @@ import { Button } from '@shared/ui';
   styleUrl: './home.scss',
 })
 export class Home {
-  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly notificationService = inject(NotificationService);
+  private readonly authService = inject(AuthService);
 
   async logout(): Promise<void> {
     try {
@@ -22,21 +20,5 @@ export class Home {
     } catch (err) {
       console.error('Logout failed', err);
     }
-  }
-
-  notify(): void {
-    this.notificationService.success('Hello', 'Very good, how do ypu feel?');
-  }
-
-  notifyI(): void {
-    this.notificationService.info('Info', 'Very good, how do ypu feel?');
-  }
-
-  notifyW(): void {
-    this.notificationService.warning('Warning', 'Very good, how do ypu feel?');
-  }
-
-  notifyE(): void {
-    this.notificationService.error('error', 'Very good, how do ypu feel?');
   }
 }
