@@ -1,5 +1,6 @@
 @use 'styles/variables' as *;
 @use 'styles/fonts' as *;
+@use 'styles/form.scss';
 
 * {
   box-sizing: border-box;

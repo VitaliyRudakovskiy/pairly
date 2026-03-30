@@ -13,9 +13,7 @@ import { User } from 'firebase/auth';
 import { AuthService } from './auth.service';
 import { UserProfile } from 'models/user-profile';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
   private readonly firestore = inject(Firestore);
   private readonly authService = inject(AuthService);

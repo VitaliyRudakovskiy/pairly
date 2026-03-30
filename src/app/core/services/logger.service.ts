@@ -14,9 +14,7 @@ export interface LogEntry {
   type: LogEnum;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class LoggerService {
   private logs = signal<LogEntry[]>([]);
 

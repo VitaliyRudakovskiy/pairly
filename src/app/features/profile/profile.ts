@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { UserService } from '@core/services/user.service';
 import { getUserAvatar, UserAvatarDetails } from '@core/helpers/getUserAvatar';
 import { LoggerService } from '@core/services/logger.service';
@@ -10,28 +10,52 @@ import {
 } from '@shared/constants/avatar-config';
 import { NotificationService } from '@core/notification/notification.service';
 import { CloudinaryService } from '@core/services/cloudinary.service';
-import { firstValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { ConfirmModal, Loader, Button } from '@shared/ui';
+import { EditingField, ProfileForm, TextareaSize } from './types';
+import { form, maxLength, minLength, required, Field } from '@angular/forms/signals';
+import { TEXTAREA_SIZE } from '@shared/constants/textarea-size';
 
 @Component({
   selector: 'app-profile',
-  imports: [Loader, ConfirmModal, Button],
+  imports: [Loader, ConfirmModal, Button, Field],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
 export class Profile {
-  private readonly userService = inject(UserService);
   private readonly logger = inject(LoggerService);
+  private readonly userService = inject(UserService);
   private readonly notificator = inject(NotificationService);
   private readonly cloudinaryService = inject(CloudinaryService);
 
+  userName = viewChild<ElementRef<HTMLInputElement>>('userName');
   fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
+  userStatus = viewChild<ElementRef<HTMLInputElement>>('userStatus');
+  userStatusText = viewChild<ElementRef<HTMLInputElement>>('userStatusText');
 
   currentUser = this.userService.userProfile;
+  editingField = signal<EditingField>(null);
   userAvatarDetails = signal<UserAvatarDetails | null>(null);
   photoLoading = signal(false);
   isConfirmModalOpen = signal(false);
   deleteLoading = signal(false);
+  loading = signal(false);
+  textareaSize = signal<TextareaSize | null>(null);
+  defaultForm = signal<ProfileForm | null>(null);
+  profileModel = signal<ProfileForm>({
+    name: '',
+    status: '',
+  });
+
+  hasNameError = computed(
+    () => this.profileForm.name().touched() && this.profileForm.name().errors().length,
+  );
+
+  profileForm = form(this.profileModel, (schema) => {
+    required(schema.name, { message: 'Name is required' });
+    minLength(schema.name, 2, { message: 'Name is too short' });
+    maxLength(schema.name, 38, { message: 'Name is too long' });
+  });
 
   AVAILABLE_FORMATS = IMAGE_ACCEPT_FORMATS_STR;
 
@@ -40,18 +64,19 @@ export class Profile {
       const avatarData = getUserAvatar(this.currentUser());
       this.userAvatarDetails.set(avatarData);
     });
-  }
 
-  onAddAvatar(): void {
-    this.fileInput()?.nativeElement.click();
-  }
+    effect(() => {
+      const user = this.currentUser();
+      if (!user) return;
 
-  onOpenConfirmModal(): void {
-    this.isConfirmModalOpen.set(true);
-  }
+      const profileData = {
+        name: user.displayName,
+        status: user.status ?? '',
+      };
 
-  onCloseConfirmModal(): void {
-    this.isConfirmModalOpen.set(false);
+      this.defaultForm.set(profileData);
+      this.profileModel.set(profileData);
+    });
   }
 
   async onRemoveAvatar(): Promise<void> {
@@ -91,7 +116,7 @@ export class Profile {
     this.photoLoading.set(true);
 
     try {
-      const uploadRes = await firstValueFrom(this.cloudinaryService.uploadImage(newPhoto));
+      const uploadRes = await lastValueFrom(this.cloudinaryService.uploadImage(newPhoto));
       this.logger.info(`Cloudinary success: ${uploadRes.secure_url}`);
 
       await this.userService.updateUserProfile({ photoUrl: uploadRes.secure_url });
@@ -103,5 +128,82 @@ export class Profile {
       this.photoLoading.set(false);
       filesInput.value = '';
     }
+  }
+
+  async saveUserProfile(): Promise<void> {
+    if (!this.hasChanges()) return;
+
+    this.loading.set(true);
+    try {
+      this.userService.updateUserProfile({
+        displayName: this.profileForm.name().value(),
+        status: this.profileForm.status().value(),
+      });
+      this.notificator.success('Success', 'Profile updated!');
+    } catch (error: unknown) {
+      this.logger.error(`Update profile failed: ${error}`);
+      this.notificator.error('Error', 'Failed to update profile');
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  hasChanges(): boolean {
+    const initial = this.defaultForm();
+    const current = {
+      name: this.profileForm.name().value(),
+      status: this.profileForm.status().value(),
+    };
+
+    return initial?.name !== current.name || initial.status !== current.status;
+  }
+
+  startEditing(field: EditingField): void {
+    if (field === 'status') {
+      const statusSize = this.userStatusText()?.nativeElement.getBoundingClientRect();
+
+      this.textareaSize.set({
+        width: statusSize?.width ?? TEXTAREA_SIZE.width,
+        height: statusSize?.height ?? TEXTAREA_SIZE.height,
+      });
+    }
+
+    this.editingField.set(field);
+
+    setTimeout(() => {
+      if (field === 'name') {
+        this.userName()?.nativeElement.focus();
+      }
+
+      if (field === 'status') {
+        const textarea = this.userStatus()?.nativeElement;
+        if (!textarea) return;
+
+        textarea.focus();
+      }
+    });
+  }
+
+  stopEditing(field: EditingField): void {
+    this.editingField.set(null);
+    if (!field) return;
+
+    const newValue = this.profileModel()[field];
+    this.profileModel.update((model) => ({
+      ...model,
+      [field]: newValue,
+    }));
+  }
+
+  onAddAvatar(): void {
+    this.fileInput()?.nativeElement.click();
+  }
+
+  onOpenConfirmModal(): void {
+    this.isConfirmModalOpen.set(true);
+  }
+
+  onCloseConfirmModal(): void {
+    this.isConfirmModalOpen.set(false);
   }
 }

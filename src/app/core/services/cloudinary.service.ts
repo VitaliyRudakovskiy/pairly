@@ -11,9 +11,7 @@ export interface CloudinaryUploadResult {
   format: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CloudinaryService {
   private readonly http = inject(HttpClient);
 

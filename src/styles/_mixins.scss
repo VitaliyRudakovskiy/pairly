@@ -50,7 +50,7 @@
   color: $ink;
 
   box-shadow: 2px 2px 0px 0px $ink;
-  transition: all $transition-main;
+  transition: $transition-main;
 
   &::placeholder {
     color: rgba($ink, 0.4);

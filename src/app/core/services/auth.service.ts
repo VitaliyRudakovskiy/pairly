@@ -10,9 +10,7 @@ import {
 } from '@angular/fire/auth';
 import { LoggerService } from './logger.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly logger = inject(LoggerService);
   readonly auth = inject(Auth);
