@@ -1,8 +1,5 @@
 import { booleanAttribute, Component, input, output } from '@angular/core';
-
-export type ButtonVariant = 'primary' | 'secondary' | 'danger';
-export type ButtonType = 'button' | 'submit' | 'reset';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+import { ButtonSize, ButtonType, ButtonVariant } from './types';
 
 @Component({
   selector: 'app-button',
@@ -10,7 +7,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
   styleUrl: './button.scss',
 })
 export class Button {
-  label = input<string>('');
+  label = input('');
   variant = input<ButtonVariant>('primary');
   type = input<ButtonType>('button');
   size = input<ButtonSize>('md');
@@ -18,6 +15,8 @@ export class Button {
   fullWidth = input(false, { transform: booleanAttribute });
   iconBefore = input<string | null>(null);
   iconAfter = input<string | null>(null);
+  iconOnly = input<string | null>(null);
+  iconAlt = input('');
   disabled = input(false);
 
   clicked = output<MouseEvent>();

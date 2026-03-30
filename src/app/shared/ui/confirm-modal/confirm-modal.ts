@@ -10,7 +10,7 @@ import { Button } from '@shared/ui';
 export class ConfirmModal {
   visible = input.required<boolean>();
 
-  title = input.required<string>();
+  modalTitle = input.required<string>();
   description = input.required<string>();
   confirmLabel = input('Yes');
   cancelLabel = input('Cancel');

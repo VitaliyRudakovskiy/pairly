@@ -7,12 +7,10 @@
 
     <!-- Login -->
     <div class="form-field-container">
-      <input type="text" id="email" placeholder="Email" [field]="loginForm.email" />
-      @if (loginForm.email().touched() && loginForm.email().errors().length) {
-        <p
-          class="form-error"
-          [class.visible]="loginForm.email().touched() && loginForm.email().errors().length"
-        >
+      <input id="email" type="text" placeholder="email" [field]="loginForm.email" />
+
+      @if (hasEmailError()) {
+        <p class="form-error" [class.visible]="hasEmailError()">
           {{ loginForm.email().errors()[0].message }}
         </p>
       }
@@ -20,15 +18,25 @@
 
     <!-- Password -->
     <div class="form-field-container">
-      <input id="password" placeholder="Password" [field]="loginForm.password" />
-      @if (loginForm.password().touched() && loginForm.password().errors().length) {
-        <p
-          class="form-error"
-          [class.visible]="loginForm.password().touched() && loginForm.password().errors().length"
-        >
+      <input
+        id="password"
+        placeholder="password"
+        [field]="loginForm.password"
+        [type]="isPasswordVisible() ? 'text' : 'password'"
+      />
+
+      @if (hasPasswordError()) {
+        <p class="form-error" [class.visible]="hasPasswordError()">
           {{ loginForm.password().errors()[0].message }}
         </p>
       }
+
+      <app-button
+        class="show-password-button"
+        [iconOnly]="isPasswordVisible() ? 'auth/eye-closed.svg' : 'auth/eye.svg'"
+        [iconAlt]="isPasswordVisible() ? 'Hide password' : 'Show password'"
+        (clicked)="togglePassword()"
+      />
     </div>
 
     <app-button

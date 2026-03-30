@@ -50,6 +50,12 @@ app-card {
         animation: slideDown 0.2s ease-out;
       }
     }
+
+    .show-password-button {
+      position: absolute;
+      right: 16px;
+      top: 6px;
+    }
   }
 
   .divider {

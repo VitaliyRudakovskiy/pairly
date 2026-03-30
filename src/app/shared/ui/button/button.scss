@@ -49,6 +49,13 @@
     color: $ink;
   }
 
+  &.icon-only {
+    @include inline-flex-center();
+    all: unset;
+    cursor: pointer;
+    padding: 8px;
+  }
+
   &.sm {
     padding: 8px 18px;
     font-size: 12px;

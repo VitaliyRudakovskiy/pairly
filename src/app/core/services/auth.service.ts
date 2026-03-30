@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
+  authState,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -8,7 +9,6 @@ import {
   User,
 } from '@angular/fire/auth';
 import { LoggerService } from './logger.service';
-import { onAuthStateChanged } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +21,11 @@ export class AuthService {
   readonly isAuthReady = signal(false);
 
   constructor() {
-    onAuthStateChanged(this.auth, (user) => {
+    authState(this.auth).subscribe((user) => {
       this.currentUser.set(user);
       this.isAuthReady.set(true);
 
-      this.logger.info(`User state: ${user ? `${user?.email} logged in` : 'logged out'}`);
+      this.logger.info(`User state: ${user ? `${user.email} logged in` : 'logged out'}`);
     });
   }
 
