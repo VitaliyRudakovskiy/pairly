@@ -15,7 +15,7 @@ describe('ConfirmModal', () => {
     component = fixture.componentInstance;
 
     fixture.componentRef.setInput('visible', true);
-    fixture.componentRef.setInput('title', 'Test Title');
+    fixture.componentRef.setInput('modalTitle', 'Test Title');
     fixture.componentRef.setInput('description', 'Test Description');
 
     fixture.detectChanges();
