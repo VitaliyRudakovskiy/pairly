@@ -9,5 +9,5 @@ import { Notification } from './core/notification/notification';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('pairly');
+  protected readonly title = signal('Autolog');
 }

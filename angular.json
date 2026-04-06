@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "pairly": {
+    "autolog": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,10 +71,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pairly:build:production"
+              "buildTarget": "autolog:build:production"
             },
             "development": {
-              "buildTarget": "pairly:build:development"
+              "buildTarget": "autolog:build:development"
             }
           },
           "defaultConfiguration": "development"

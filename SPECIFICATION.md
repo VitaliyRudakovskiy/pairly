@@ -4,7 +4,7 @@
 
 ### 1.1 Project Name
 
-Project name: Pairly
+Project name: Autolog
 
 ### 1.2 Project Type
 
